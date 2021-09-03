@@ -70,7 +70,7 @@ class ToDoList extends React.Component {
         return (
             <div className='main'>
                 <input type='text' placeholder='Введите задачу' onChange={this.handleChange} value={this.state.value}></input>
-                <button onClick={this.handleClick}>Add some product</button>
+                <button onClick={this.handleClick}>Add some task</button>
                 <ul>
                     {this.state.task.map((element, index) => (
                         <Product element={element} style={this.state.color} key={index} index={index} handleDelete={this.handleDelete} />

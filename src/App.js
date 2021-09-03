@@ -51,7 +51,7 @@ function App() {
   return (
     <div className='main'>
       <input type='text' placeholder = 'Введите задачу' onChange={handleChange} value={value}></input>
-      <button onClick={handleClick}>Add some product</button>
+      <button onClick={handleClick}>Add some task</button>
       <ul>
         {state.map((element, index) => (
           <Product element={element} style={color} key={index} index={index} handleDelete={handleDelete} />
