@@ -1,68 +1,62 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, memo} from 'react';
+import Input from "./inputs";
 
-function Product(props) {
-  return (
-    <div>
-      <li style = {props.style} >{props.element}</li>
-      <button onClick = {props.handleDelete(props.index)}>X</button>
-    </div>
-  )
-}
+const inputData = ["name", "email", "phone", "text"];
 
-function Notification(props) {
-  useEffect(() => {
-    console.log('Did mount');
-    return () => {
-      console.log('Will unmount');
-    }
-  }, []);
 
-  return (
-    <p style = {props.style}>Слишком много задач!</p>
-  )
-}
 
 
 function App() {
-  const [state, setState] = useState([]);
-  const [value, setValue] = useState("");
-  const [color, setColor] = useState({});
+  const [value, setValue] = useState({});
 
-  useEffect(() => {
-    const styleColor = { color: `rgb(${Math.round(255.0 * Math.random())}, ${Math.round(255.0 * Math.random())}, ${Math.round(255.0 * Math.random())})` };
-    setColor(styleColor);
-  }, [state]);
+  const [data, setData] = useState(inputData)
+  const [type, setType] = useState([])
 
-  const handleClick = (props) => {
-    setState([...state, value]);
-    setValue("")
+  const handleAddInput = () => {
+    setData([...data, `${Math.round(Math.random() * 100)}`]);
+    let numberType = Math.round(Math.random() * 7)
+    if (numberType == 1) {
+      setType([...type, 'text'])
+    } else if (numberType == 2) {
+      setType([...type, 'button'])
+    } else if (numberType == 3) {
+      setType([...type, 'checkbox'])
+    } else if (numberType == 4) {
+      setType([...type, 'file'])
+    } else if (numberType == 5) {
+      setType([...type, 'radio'])
+    } else if (numberType == 6) {
+      setType([...type, 'image'])
+    } else {
+      setType([...type, 'password'])
+    }
+
+
   };
 
-  const handleDelete = (index) => () => {
-    const filteredState = state.filter((e, i) => i !== index)
-    setState(filteredState)
+  const handleChange = (elem) => (event) => {
+    const newState = {
+      ...value,
+      [elem]: event.target.value,
+    }
+    setValue(newState)
   };
-
-  const handleChange = (event) => {
-    setValue(event.target.value)
+  const handleClick = () => {
+    console.log(value)
   };
-
   return (
     <div className='main'>
-      <input type='text' placeholder = 'Введите задачу' onChange={handleChange} value={value}></input>
-      <button onClick={handleClick}>Add some task</button>
-      <ul>
-        {state.map((element, index) => (
-          <Product element={element} style={color} key={index} index={index} handleDelete={handleDelete} />
-        ))}
-      </ul>
+      {data.map((element, index) => (
+        <Input type={type[(index - 4)]} element={element} placeholder={`Введите ${element}`} onChange={handleChange(element)} ></Input>
 
-      {state.length > 5 && <Notification />}
+      ))}
+      <button style={{ margin: '10px' }} onClick={handleClick}>send</button>
+      <button onClick={handleAddInput}>Add some input</button>
     </div>
   );
 }
 
 
 
-export default App;
+export default memo(App);
