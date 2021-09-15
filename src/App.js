@@ -1,11 +1,9 @@
 import './App.css';
-import React, { useState, memo} from 'react';
+import React, { useState, memo } from 'react';
 import Input from "./inputs";
+import { useEffect } from 'react/cjs/react.development';
 
 const inputData = ["name", "email", "phone", "text"];
-
-
-
 
 function App() {
   const [value, setValue] = useState({});
@@ -31,8 +29,6 @@ function App() {
     } else {
       setType([...type, 'password'])
     }
-
-
   };
 
   const handleChange = (elem) => (event) => {
@@ -47,16 +43,16 @@ function App() {
   };
   return (
     <div className='main'>
+      <div className="heading">
+        <h1 >To Do List</h1>
+      </div>
       {data.map((element, index) => (
         <Input type={type[(index - 4)]} element={element} placeholder={`Введите ${element}`} onChange={handleChange(element)} ></Input>
-
       ))}
       <button style={{ margin: '10px' }} onClick={handleClick}>send</button>
       <button onClick={handleAddInput}>Add some input</button>
     </div>
   );
 }
-
-
 
 export default memo(App);
