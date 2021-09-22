@@ -60,9 +60,10 @@ ul {
 }
 li{
   width: 100%;
+  border-bottom: 1px solid transparent;
 }
 .list__item{
-  /* background-color: rgb(184, 231, 217); */
+  /* background-color: rgb(184, 231, 217); ghjkl;''''''''''''''''''''''''''''''''''''''''''''*/
   display: flex;
   justify-content: space-between;
   align-items: center;
