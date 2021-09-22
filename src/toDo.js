@@ -1,20 +1,21 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function Task(props) {
-    
+
     if (props.state) {
+
         return (
             <div style={props.style} className='list__item'>
-                <input value={props.valueRename} type='text' className = 'input'  onBlur={props.handleBlur(props.index)} onChange = {props.handleChange('rename')} autofocus></input>
+                <input value={props.valueRename} type='text' className='input' onBlur={props.handleBlur(props.index)} onChange={props.handleChange('rename')} autoFocus></input>
                 <button className="btn-close btn" onClick={props.handleDelete(props.index)}>x</button>
             </div>
         )
 
     } else {
         return (
-            <div  onClick ={props.handleRename(props.index)} style={props.style} className='list__item'>
-                <li >{props.element}</li>
+            <div style={props.style} className='list__item'>
+                <li onClick={props.handleRename(props.index)}>{props.element}</li>
                 <button className="btn-close btn" onClick={props.handleDelete(props.index)}>x</button>
             </div>
         )
@@ -41,51 +42,48 @@ function ToDo() {
     const [stateRename, setStateRename] = useState([]);
     const [valueRename, setValueRename] = useState("");
 
-    useEffect(() => {
+    useEffect((prev) => {
         let styleColor = `rgb(${Math.round(255.0 * Math.random())}, ${Math.round(255.0 * Math.random())}, ${Math.round(255.0 * Math.random())}, 0.6)`;
         setColor([...color, styleColor]);
-    }, [state]);
+    }, [state.length]);
 
     const handleClick = (event) => {
-        if (value) {
-            setState([...state, value]);
-            setStateRename([...stateRename, 0]);
-            setValue("")
-        }
+        setState([...state, value]);
+        setStateRename([...stateRename, 0]);
+        setValue("")
     };
-    useEffect(() => {
-        setState(state)
-    }, [stateRename]);
+    const filter = (arr, index) => arr.filter((e, i) => i !== index)
 
     const handleDelete = (index) => () => {
-        const filteredState = state.filter((e, i) => i !== index)
-        const filteredStateRename = stateRename.filter((e, i) => i !== index)
+        const filteredState = filter(state, index)
+        const filteredStateRename = filter(stateRename, index)
+        const filteredColor = filter(color, index)
         setState(filteredState)
         setStateRename(filteredStateRename)
+        setColor(filteredColor)
     };
     const handleRename = (index) => () => {
-        stateRename[index] =1
+        stateRename[index] = 1
         const renameValue = [...stateRename]
         setStateRename(renameValue)
         setValueRename(state[index])
+
     };
     const handleChange = (set) => (event) => {
-        if(set == 'value'){
-        setValue(event.target.value)
-        } else{
-        setValueRename(event.target.value)
+        if (set === 'value') {
+            setValue(event.target.value)
+        } else {
+            setValueRename(event.target.value)
         }
-        console.log(value)
-
     };
 
-    const handleBlur = (index) => () =>{
+    const handleBlur = (index) => () => {
         state[index] = valueRename;
         const newState = [...state]
         setState(newState)
         stateRename[index] = 0
-        const renameValue = [...stateRename]
-        setStateRename(renameValue)
+        const renameState = [...stateRename]
+        setStateRename(renameState)
     }
 
 
@@ -96,12 +94,12 @@ function ToDo() {
             </div>
             <div className="list-container container">
                 <div className='form'>
-                    <input className = 'input' set = {setValueRename} type='text' placeholder='Введите задачу' onChange={handleChange('value')} value={value}></input>
+                    <input className='input' type='text' placeholder='Введите задачу' onChange={handleChange('value')} value={value}></input>
                     <button className="btn-add btn" onClick={handleClick}>+</button>
                 </div>
                 <ul className='list'>
                     {state.map((element, index) => (
-                        <Task element={element} valueRename={valueRename} state={stateRename[index]} style={{ backgroundColor: color[index] }} key={index} index={index} handleRename ={handleRename} handleBlur ={handleBlur} handleChange ={handleChange} handleDelete={handleDelete} />
+                        <Task element={element} valueRename={valueRename} style={{ backgroundColor: color[index] }} key={index} index={index} state={stateRename[index]} index={index} handleRename={handleRename} handleBlur={handleBlur} handleChange={handleChange} handleDelete={handleDelete} />
                     ))}
                 </ul>
             </div>

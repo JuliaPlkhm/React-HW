@@ -58,6 +58,9 @@ ul {
   margin-bottom: 20px;
   list-style: none;
 }
+li{
+  width: 100%;
+}
 .list__item{
   /* background-color: rgb(184, 231, 217); */
   display: flex;
