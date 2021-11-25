@@ -3,22 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-.wrapper{
+.ToDoContainer {
   margin: 0 auto;
-  max-width: 1500px;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.main {
-  margin:  0 auto;
+  max-width: 800px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-
-
+  
 }
 .container{
   width: 100%;
@@ -50,8 +39,6 @@
   background-color: transparent;
   font-family: 'Glory';
   font-size: 16px;
-
-  
 }
 input:focus{
   outline: none;
@@ -71,13 +58,14 @@ li{
   border-bottom: 1px solid transparent;
 }
 .list__item{
-  /* background-color: rgb(184, 231, 217); ghjkl;''''''''''''''''''''''''''''''''''''''''''''*/
+  /* background-color: rgb(184, 231, 217); */
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   padding: 10px;
 }
+
 .btn{
   display: inline-block;
   border-radius: 50%;
