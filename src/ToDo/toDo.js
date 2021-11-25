@@ -1,5 +1,5 @@
-import './App.css';
-import React, { useState, useEffect, useRef } from 'react';
+import './ToDo.css';
+import React, { useState, useEffect } from 'react';
 
 function Task(props) {
 
@@ -88,7 +88,7 @@ function ToDo() {
 
 
     return (
-        <div className='main'>
+        <div className='ToDoContainer'>
             <div className="heading container">
                 <h1 >To Do List</h1>
             </div>

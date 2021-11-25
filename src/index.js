@@ -3,20 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ToDo from './toDo';
-import RouterComp from './router'
-import QueryParamsExample from './rout'
+
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <ToDo />
-    {/* <RouterComp /> */}
-    {/* < QueryParamsExample/> */}
-  </React.StrictMode>,
+    <App />
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
